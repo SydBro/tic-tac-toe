@@ -15,6 +15,4 @@ class Player
             @@instances += 1
         end
     end
-    
 end
-
