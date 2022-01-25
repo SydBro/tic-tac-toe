@@ -36,6 +36,8 @@ class Board
         column_1 = []
         column_2 = []
         column_3 = []
+        diag_1 = []
+        diag_2 = []
         @board.each_with_index do |row, row_index|
             if row.all?(player_mark)
                 p "#{player_name} has won! Row #{row_index + 1} has been filled with #{player_mark}s!"
@@ -49,6 +51,15 @@ class Board
         columns.each_with_index do |col, col_index|
             if col.all?(player_mark)
                 p "#{player_name} has won! Column #{col_index + 1} has been filled with #{player_mark}s!"
+                @win_state = true
+            end
+        end
+        diag_1.push(@board[0][0], @board[1][1], @board[2][2])
+        diag_2.push(@board[0][2], @board[1][1], @board[2][0])
+        diags = [diag_1, diag_2]
+        diags.each do |diag|
+            if diag.all?(player_mark)
+                p "#{player_name} has placed their #{player_mark}s diagonally in a row! #{player_name} has won!"
                 @win_state = true
             end
         end
