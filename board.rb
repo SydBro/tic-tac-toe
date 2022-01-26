@@ -9,7 +9,7 @@ class Board
     def board_state
         puts "____________"
         @board.each do |row|
-            puts row.each {|p| p }.join("   ")
+            puts row.each {|p| p }.join("  |  ")
         end
         puts "____________"
     end
@@ -33,16 +33,26 @@ class Board
     end
 
     def win_conditions(player_name, player_mark)
-        column_1 = []
-        column_2 = []
-        column_3 = []
-        diag_1 = []
-        diag_2 = []
+        row_win(player_name, player_mark)
+        col_win(player_name, player_mark)
+        diag_win(player_name, player_mark)
+        return @win_state
+    end
+
+    def row_win(player_name, player_mark)
         @board.each_with_index do |row, row_index|
             if row.all?(player_mark)
                 p "#{player_name} has won! Row #{row_index + 1} has been filled with #{player_mark}s!"
                 @win_state = true
             end
+        end
+    end
+
+    def col_win(player_name, player_mark)
+        column_1 = []
+        column_2 = []
+        column_3 = []
+        @board.each_with_index do |row, row_index|
             column_1.push(row[0])
             column_2.push(row[1])
             column_3.push(row[2])
@@ -54,6 +64,11 @@ class Board
                 @win_state = true
             end
         end
+    end
+
+    def diag_win(player_name, player_mark)
+        diag_1 = []
+        diag_2 = []
         diag_1.push(@board[0][0], @board[1][1], @board[2][2])
         diag_2.push(@board[0][2], @board[1][1], @board[2][0])
         diags = [diag_1, diag_2]
@@ -63,6 +78,5 @@ class Board
                 @win_state = true
             end
         end
-        return @win_state
     end
 end
