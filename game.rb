@@ -41,14 +41,28 @@ class Game
                 end
             end
         end
+        #new_game()
     end
 
-=begin - methods to be implemented
-    def end_game
-        
+=begin
+    def new_game
+        puts "Thank you for playing! Do you want to play again?"
+        puts "Enter y or n"
+        play_again = gets.chomp
+        until (play_again == "y" || "n")
+            if play_again == "n"
+                puts "Thanks for playing!"
+            elsif play_again == "y"
+                @board = Board.new
+                play()
+            else
+                "Invlaid response. Do you want to play again?"
+                puts "Enter y or n"
+                play_again = gets.chomp
+            end
+        end
     end
 =end
-
 end
 
 new_game = Game.new
